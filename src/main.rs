@@ -201,7 +201,10 @@ async fn main() -> ExitCode {
         PoolDifficulty::build(&chain_store_handle).expect("Failed to build pool difficulty");
 
     let cloned_stratum_config = stratum_config.clone();
-    let payout = Payout::new(cloned_stratum_config.network);
+    let payout = Payout::with_window_shares(
+        cloned_stratum_config.network,
+        cloned_stratum_config.pplns_window_shares,
+    );
     let shared_pplns_window = payout.shared_pplns_window();
     let exit_sender_notify = exit_sender.clone();
     let exit_receiver_notify = exit_sender.subscribe();
