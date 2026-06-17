@@ -252,6 +252,8 @@ async fn main() -> ExitCode {
             .minimum_difficulty(stratum_config.minimum_difficulty)
             .maximum_difficulty(stratum_config.maximum_difficulty)
             .ignore_difficulty(stratum_config.ignore_difficulty)
+            .signet_block_interval_secs(stratum_config.signet_block_interval_secs)
+            .signet_block_retarget_blocks(stratum_config.signet_block_retarget_blocks)
             .validate_addresses(Some(
                 stratum_config.donation.unwrap_or_default() != FULL_DONATION_BIPS,
             ))
