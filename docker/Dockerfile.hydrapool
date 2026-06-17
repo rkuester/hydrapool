@@ -24,8 +24,16 @@ WORKDIR /hydrapool
 COPY src/ ./src/
 COPY Cargo.lock Cargo.toml ./
 
-# Build hydrapool and hydrapool_cli in release mode
-RUN cargo build --release
+# Build in release mode. Cache the cargo registry, git checkouts, and
+# target/ across builds so a source edit only recompiles changed crates.
+# target/ is a cache mount (not part of the image), so copy the binaries
+# out to /out before the mount detaches.
+RUN --mount=type=cache,id=hydrapool-registry,target=/usr/local/cargo/registry \
+    --mount=type=cache,id=hydrapool-git,target=/usr/local/cargo/git \
+    --mount=type=cache,id=hydrapool-target,target=/hydrapool/target \
+    cargo build --release && \
+    mkdir -p /out && \
+    cp target/release/hydrapool target/release/hydrapool_cli /out/
 
 # Stage 2: Runtime
 FROM debian:bullseye-slim
@@ -51,9 +59,8 @@ RUN groupadd --system hydrapool && \
 RUN mkdir -p /var/lib/hydrapool /var/log/hydrapool /etc/hydrapool && \
     chown -R hydrapool:hydrapool /var/lib/hydrapool /var/log/hydrapool
 
-# Copy binaries from builder stage
-COPY --from=builder /hydrapool/target/release/hydrapool /usr/local/bin/
-COPY --from=builder /hydrapool/target/release/hydrapool_cli /usr/local/bin/
+# Copy binaries from builder stage (from /out, since target/ is a cache mount)
+COPY --from=builder /out/hydrapool /out/hydrapool_cli /usr/local/bin/
 
 # Copy default config
 COPY config.toml /etc/hydrapool/config.toml
