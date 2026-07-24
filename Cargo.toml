@@ -37,17 +37,13 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 bitcoin = { version = "0.32.5", features = ["serde", "rand"] }
 tokio = { version = "1.0", features = ["full"] }
-# Local fork with fractional (f64) stratum difficulty support. See ~/p2poolv2
-# branch fractional-difficulty.
-# p2poolv2_lib = { git = "https://github.com/p2poolv2/p2poolv2", package = "p2poolv2_lib", tag = "v0.10.16" }
-# p2poolv2_cli = { git = "https://github.com/p2poolv2/p2poolv2", package = "p2poolv2_cli", tag = "v0.10.16" }
-# p2poolv2_api = { git = "https://github.com/p2poolv2/p2poolv2", package = "p2poolv2_api", tag = "v0.10.16" }
-# bitcoindrpc = { git = "https://github.com/p2poolv2/p2poolv2", package = "bitcoindrpc", tag = "v0.10.16" }
-
-p2poolv2_lib = { path = "../p2poolv2/p2poolv2_lib/" }
-p2poolv2_cli = { path = "../p2poolv2/p2poolv2_cli/" }
-p2poolv2_api = { path = "../p2poolv2/p2poolv2_api/" }
-bitcoindrpc = { path = "../p2poolv2/bitcoindrpc/" }
+# Fork of p2poolv2 v0.10.16 adding fractional (f64) stratum difficulty, which
+# devpool needs so laptop CPU miners can hold a sub-1 difficulty session.
+# Pinned to a tag rather than a branch so the build cannot drift.
+p2poolv2_lib = { git = "https://github.com/rkuester/p2poolv2", package = "p2poolv2_lib", tag = "v0.10.16-fractional-1" }
+p2poolv2_cli = { git = "https://github.com/rkuester/p2poolv2", package = "p2poolv2_cli", tag = "v0.10.16-fractional-1" }
+p2poolv2_api = { git = "https://github.com/rkuester/p2poolv2", package = "p2poolv2_api", tag = "v0.10.16-fractional-1" }
+bitcoindrpc = { git = "https://github.com/rkuester/p2poolv2", package = "bitcoindrpc", tag = "v0.10.16-fractional-1" }
 
 [[bin]]
 name = "hydrapool"

@@ -24,16 +24,9 @@ WORKDIR /hydrapool
 COPY src/ ./src/
 COPY Cargo.lock Cargo.toml ./
 
-# The p2poolv2 engine crates are local path deps (../p2poolv2 in
-# Cargo.toml), which lives outside this build context. Pull the fork in
-# as a named build context so the path deps resolve at /p2poolv2 (where
-# ../p2poolv2 points from /hydrapool). The fork's .dockerignore keeps its
-# 14G target/ out of the copy. Build with:
-#   podman build -f docker/Dockerfile.hydrapool \
-#       --build-context p2poolv2=../p2poolv2 -t <tag> .
-COPY --from=p2poolv2 . /p2poolv2/
-
-# Build in release mode. Cache the cargo registry, git checkouts, and
+# Build in release mode. The p2poolv2 engine crates are git deps pinned to
+# a tag (see Cargo.toml), so cargo fetches them here and the build needs no
+# extra context beyond this repo. Cache the cargo registry, git checkouts, and
 # target/ across builds so a source edit only recompiles changed crates.
 # target/ is a cache mount (not part of the image), so copy the binaries
 # out to /out before the mount detaches.

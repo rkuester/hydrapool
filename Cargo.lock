@@ -479,6 +479,7 @@ dependencies = [
 [[package]]
 name = "bitcoindrpc"
 version = "0.10.16"
+source = "git+https://github.com/rkuester/p2poolv2?tag=v0.10.16-fractional-1#ccaca75b9be6f77564917376b3768b5064bd1a47"
 dependencies = [
  "base64 0.22.1",
  "bitcoin",
@@ -3032,6 +3033,7 @@ checksum = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39"
 [[package]]
 name = "p2poolv2_api"
 version = "0.10.16"
+source = "git+https://github.com/rkuester/p2poolv2?tag=v0.10.16-fractional-1#ccaca75b9be6f77564917376b3768b5064bd1a47"
 dependencies = [
  "axum",
  "base64 0.22.1",
@@ -3053,6 +3055,7 @@ dependencies = [
 [[package]]
 name = "p2poolv2_cli"
 version = "0.10.16"
+source = "git+https://github.com/rkuester/p2poolv2?tag=v0.10.16-fractional-1#ccaca75b9be6f77564917376b3768b5064bd1a47"
 dependencies = [
  "base64 0.22.1",
  "bitcoin",
@@ -3076,6 +3079,7 @@ dependencies = [
 [[package]]
 name = "p2poolv2_config"
 version = "0.10.16"
+source = "git+https://github.com/rkuester/p2poolv2?tag=v0.10.16-fractional-1#ccaca75b9be6f77564917376b3768b5064bd1a47"
 dependencies = [
  "bitcoin",
  "bitcoindrpc",
@@ -3086,6 +3090,7 @@ dependencies = [
 [[package]]
 name = "p2poolv2_lib"
 version = "0.10.16"
+source = "git+https://github.com/rkuester/p2poolv2?tag=v0.10.16-fractional-1#ccaca75b9be6f77564917376b3768b5064bd1a47"
 dependencies = [
  "async-trait",
  "base64 0.22.1",
